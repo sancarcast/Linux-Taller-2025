@@ -1,0 +1,13 @@
+---
+- name: Aplicar actualizaciones
+  hosts: all
+  become: true
+
+  tasks:
+
+  - name: Instalar todas las actualizaciones
+    ansible.builtin.dnf:
+      name: "*"
+      state: latest
+    
+  - name: Reiniciar
