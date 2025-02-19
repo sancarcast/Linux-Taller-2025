@@ -9,5 +9,10 @@
     ansible.builtin.dnf:
       name: "*"
       state: latest
-    
+    notify: Reiniciar
+
+  handlers:
+
   - name: Reiniciar
+    ansible.builtin.reboot:
+      msg: "Reiniciando"
