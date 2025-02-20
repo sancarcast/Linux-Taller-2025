@@ -5,10 +5,19 @@
 
   tasks:
 
-  - name: Instalar todas las actualizaciones
+  - name: Instalar security updates en RedHat
     ansible.builtin.dnf:
       name: "*"
       state: latest
+    when: ansible_os_family == "RedHat"
+    notify: Reiniciar
+
+  - name: Instalar security updates en Debian
+    ansible.builtin.apt:
+      name: "*"
+      update_cache: true
+      state: latest
+    when: ansible_os_family == "Debian"
     notify: Reiniciar
 
   handlers:

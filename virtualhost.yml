@@ -1,0 +1,59 @@
+---
+- name: Agregar Virtual Host
+  hosts: centos
+  become: true
+
+  tasks:
+
+  - name: Agregar registro al archivo host
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      line: "192.168.56.20 www.{{ virtual_server }}.com"
+      state: present
+    delegate_to: localhost
+    connection: local
+
+  - name: Modificar config de apache 
+    ansible.builtin.lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      line: "IncludeOptional /etc/httpd/vhost.d/*.conf"
+    notify: Reiniciar Apache
+  
+  - name: Crear dir vhost.d
+    ansible.builtin.file:
+      path: /etc/httpd/vhost.d
+      state: directory
+      mode: '0755'
+      owner: root
+      group: root
+
+  - name: Existe dir para alojar sitio
+    ansible.builtin.file:
+      path: "/var/www/{{ virtual_server }}/html"
+      state: directory
+      owner: apache
+      group: apache
+      mode: '0755'
+  - name: Config de virtual host
+    ansible.builtin.template:
+      src: ./templates/virtualhost.j2
+      dest: "/etc/httpd/vhost.d/{{ virtual_server }}.conf"
+      owner: root
+      group: root
+      mode: '0644'
+    notify: Reiniciar Apache
+ 
+  - name: Existe archivo indice estandar
+    ansible.builtin.template:
+      src: ./templates/index.j2
+      dest: "/var/www/{{ virtual_server }}/html/index.html"
+      owner: apache
+      group: apache
+      mode: '0644'
+
+  handlers:
+
+  - name: Reiniciar Apache
+    ansible.builtin.systemd_service:
+      name: httpd
+      state: restarted
