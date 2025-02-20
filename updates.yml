@@ -11,6 +11,7 @@
       state: latest
     when: ansible_os_family == "RedHat"
     notify: Reiniciar
+    register: redhat_install_results
 
   - name: Instalar security updates en Debian
     ansible.builtin.apt:
@@ -19,9 +20,15 @@
       state: latest
     when: ansible_os_family == "Debian"
     notify: Reiniciar
+    register: debian_install_results
+
+  - name: Visualizar resultados de instalacion de RedHat
+    ansible.builtin.debug:
+      var: redhat_install_results
 
   handlers:
 
   - name: Reiniciar
     ansible.builtin.reboot:
       msg: "Reiniciando"
+
