@@ -1,1 +1,55 @@
+---
+- name: Hardening Ubuntu
+  hosts: ubuntu
+  become: true
 
+  tasks:
+
+  - name: Instalar UFW
+    ansible.builtin.apt:
+      name: ufw
+      state: present
+
+  - name: Habilitar UFW y bloquear todo
+    community.general.ufw:
+      state: enabled
+      default: deny
+
+  - name: Habilitar SSH en UFW
+    community.general.ufw:
+      rule: allow
+      port: 22
+      proto: any
+
+  - name: Crear/verificar directorio .ssh para guardar clave pub
+    ansible.builtin.file:
+      path: "/home/sysadmin/.ssh"
+      state: directory
+      mode: '0700'
+      owner: sysadmin
+      group: sysadmin
+
+  - name: Crear/verificar archivo authorized_keys para guardar clave pub
+    ansible.builtin.file:
+      path: "/home/sysadmin/.ssh/authorized_keys"
+      state: touch
+      mode: '0600'
+      owner: sysadmin
+      group: sysadmin
+
+  - name: Copiar la clave pub de Bastion hacia el host
+    ansible.builtin.lineinfile:
+      path: "/home/sysadmin/.ssh/authorized_keys"
+      line: "{{ bastion_pub_key }}"
+
+  - name: Habilitar login por clave pub/privada
+    ansible.builtin.lineinfile:
+      path: "/etc/ssh/sshd_config"
+      regexp: '^PasswordAuthentication\s+'
+      line: "PasswordAuthentication no"
+      backup: yes
+
+  - name: Reiniciar SSH
+    ansible.builtin.service:
+      name: ssh
+      state: restarted
