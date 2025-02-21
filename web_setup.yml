@@ -15,7 +15,7 @@
       name: httpd
       state: started
       enabled: true
-	  
+
   - name: Agregar registro al archivo host
     ansible.builtin.lineinfile:
       path: /etc/hosts
@@ -45,7 +45,7 @@
       owner: apache
       group: apache
       mode: '0755'
-	  
+  
   - name: Config de virtual host
     ansible.builtin.template:
       src: ./templates/virtualhost.j2
@@ -57,14 +57,14 @@
  
   - name: Existe archivo indice estandar
     ansible.builtin.template:
-      src: ./templates/index.j2
+      src: ./templates/index_personalizado.j2
       dest: "/var/www/ejemplo.com.uy/html/index.html"
       owner: apache
       group: apache
       mode: '0644'
 
   - name: Instalar firewalld
-	ansible.builtin.package:
+    ansible.builtin.package:
       name: firewalld
       state: present
 
@@ -80,14 +80,6 @@
       state: enabled
       permanent: true
       immediate: true
-
-  - name: Pagina indice generada por template
-    ansible.builtin.template:
-      src: ./templates/index_personalizado.j2
-      dest: /var/www/html/index.html
-      owner: apache
-      group: apache
-      mode: '0644'
 
   handlers:
 
