@@ -31,7 +31,8 @@ Mientras trabajabamos en este proyecto, fuimos encontrando varios problemas y de
 * [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html)
 * [ansible.posix](https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html)
 * [ansible.builtin.lineinfile](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html)
-* Open AI: ChatGPT - Prompt: 
+* [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html)
+* [Open AI: ChatGPT](https://chatgpt.com/) Prompt: 
 
 > **En ansible.builtin.lineinfile se documenta un ejemplo donde se agregan líneas a un archivo y se hace uso de "backup: yes". ¿De qué se trata este párametro y por qué seria relevante implementarlo?**
 
