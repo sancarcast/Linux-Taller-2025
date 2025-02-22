@@ -36,17 +36,7 @@ Mientras trabajabamos en este proyecto, fuimos encontrando varios problemas y de
 
 > **En ansible.builtin.lineinfile se documenta un ejemplo donde se agregan líneas a un archivo y se hace uso de "backup: yes". ¿De qué se trata este párametro y por qué seria relevante implementarlo?**
 
-> El parámetro backup: yes en el módulo ansible.builtin.lineinfile le indica a Ansible que haga una copia de seguridad del archivo original antes de aplicar cualquier modificación. Esto significa que, si por alguna razón se produce un error o necesitas revertir los cambios, tendrás una versión anterior del archivo para restaurar.
-
-¿Por qué es relevante implementarlo?
-Seguridad ante errores:
-Al contar con una copia de seguridad, puedes regresar rápidamente al estado previo si el cambio introducido causa problemas o si el archivo es crítico para la operación del sistema.
-
-Control de cambios:
-Permite tener un registro de modificaciones, lo que facilita el diagnóstico de errores en entornos productivos.
-
-Práctica recomendada:
-Especialmente en entornos de producción o cuando se modifica un archivo sensible, tener una copia de seguridad es una medida de precaución que mejora la robustez del proceso de automatización.
+> El parámetro backup: yes en el módulo ansible.builtin.lineinfile le indica a Ansible que haga una copia de seguridad del archivo original antes de aplicar cualquier modificación. Esto significa que, si por alguna razón se produce un error o necesitas revertir los cambios, tendrás una versión anterior del archivo para restaurar. ¿Por qué es relevante implementarlo? Seguridad ante errores: Al contar con una copia de seguridad, puedes regresar rápidamente al estado previo si el cambio introducido causa problemas o si el archivo es crítico para la operación del sistema. Control de cambios: Permite tener un registro de modificaciones, lo que facilita el diagnóstico de errores en entornos productivos. Práctica recomendada: Especialmente en entornos de producción o cuando se modifica un archivo sensible, tener una copia de seguridad es una medida de precaución que mejora la robustez del proceso de automatización.
 
 ## Licencia / License
 
