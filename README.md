@@ -33,7 +33,7 @@ Mientras trabajabamos en este proyecto, fuimos encontrando varios problemas y de
 * [ansible.builtin.lineinfile](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html)
 * Open AI: ChatGPT - Prompt: 
 
-> En ansible.builtin.lineinfile se documenta un ejemplo donde se agregan líneas a un archivo y se hace uso de "backup: yes". ¿De qué se trata este párametro y por qué seria relevante implementarlo?
+> **En ansible.builtin.lineinfile se documenta un ejemplo donde se agregan líneas a un archivo y se hace uso de "backup: yes". ¿De qué se trata este párametro y por qué seria relevante implementarlo?**
 
 > El parámetro backup: yes en el módulo ansible.builtin.lineinfile le indica a Ansible que haga una copia de seguridad del archivo original antes de aplicar cualquier modificación. Esto significa que, si por alguna razón se produce un error o necesitas revertir los cambios, tendrás una versión anterior del archivo para restaurar.
 
